@@ -179,7 +179,7 @@ function App() {
                   </svg>
 
                   {/* Multiple Shirts Based on Quantity */}
-                  {Array.from({ length: quantity }, (_, index) => (
+                  {Array.from({ length: Math.min(quantity, 4) }, (_, index) => (
                     <img
                       key={index}
                       src="https://pics.clipartpng.com/midle/Male_White_Shirt_PNG_Clipart-942.png"
@@ -192,9 +192,9 @@ function App() {
                               selectedSize === 'l' ? 1.0 :
                                 selectedSize === 'xl' ? 1.1 :
                                   selectedSize === 'xxl' ? 1.2 : 1.0
-                          }) translate(${index * 15}px, ${index * 10}px)`,
+                          }) translate(${index * 20}px, ${-index * 5}px)`,
                         filter: 'url(#colorFilter)',
-                        zIndex: index + 1
+                        zIndex: quantity - index
                       }}
                     />
                   ))}
