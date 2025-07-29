@@ -233,10 +233,10 @@ function App() {
             <div className="relative top-[95px]">
               <div className="relative w-80 h-80 mx-auto">
 
-                {/* Dialer Marker - Top Center */}
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
-                  <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-gray-800"></div>
-                </div>
+                                  {/* Dialer Marker - Top Center */}
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
+                    <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-orange-500"></div>
+                  </div>
 
                 {/* Outer Circle - Colors */}
                 <div className="absolute inset-0 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
