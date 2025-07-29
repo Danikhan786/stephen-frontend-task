@@ -29,7 +29,6 @@ const colorOptions: ColorOption[] = [
 ];
 
 const sizeOptions: SizeOption[] = [
-  { id: 'xxxl', name: 'XXXL', available: true },
   { id: 'xxl', name: 'XXL', available: true },
   { id: 'xl', name: 'XL', available: true },
   { id: 'l', name: 'L', available: true },
