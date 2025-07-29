@@ -50,26 +50,29 @@ function App() {
   const [cartItems, setCartItems] = useState<number>(0);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [cartAnimation, setCartAnimation] = useState<boolean>(false);
-  const colorDialerRef = useRef<HTMLDivElement>(null);
-  const sizeDialerRef = useRef<HTMLDivElement>(null);
 
-  // Array rotation state for smooth scrolling
-  const [currentColors, setCurrentColors] = useState<ColorOption[]>([...colorOptions]);
-  const [currentSizes, setCurrentSizes] = useState<SizeOption[]>([...sizeOptions]);
 
-  // Mouse drag state for scrolling
-  const [dragState, setDragState] = useState<{
-    isDragging: boolean;
-    dialer: 'color' | 'size' | null;
-    startX: number;
-  }>({
-    isDragging: false,
-    dialer: null,
-    startX: 0
-  });
 
   const incrementQuantity = () => setQuantity(prev => prev + 1);
   const decrementQuantity = () => setQuantity(prev => Math.max(1, prev - 1));
+
+  // Calculate color rotation based on selected color
+  useEffect(() => {
+    const colorIndex = colorOptions.findIndex(color => color.id === selectedColor);
+    const totalColors = colorOptions.length;
+    const anglePerColor = 360 / totalColors; // 360 degrees for full circle
+    const targetRotation = -(colorIndex * anglePerColor) + 270; // Start from top (270 degrees)
+    setColorRotation(targetRotation);
+  }, [selectedColor]);
+
+  // Calculate size rotation based on selected size
+  useEffect(() => {
+    const sizeIndex = sizeOptions.findIndex(size => size.id === selectedSize);
+    const totalSizes = sizeOptions.length;
+    const anglePerSize = 180 / (totalSizes - 1); // 180 degrees for semicircle
+    const targetRotation = -(sizeIndex * anglePerSize);
+    setSizeRotation(targetRotation);
+  }, [selectedSize]);
 
   const handleBuy = () => {
     setCartItems(prev => prev + quantity);
@@ -82,156 +85,10 @@ function App() {
     }, 1000);
   };
 
-  // Handle color dialer scroll with array rotation
-  const handleColorScroll = (direction: 'left' | 'right') => {
-    setCurrentColors(prev => {
-      const newColors = [...prev];
-      if (direction === 'right') {
-        newColors.unshift(newColors.pop()!);
-      } else {
-        newColors.push(newColors.shift()!);
-      }
-      return newColors;
-    });
-
-    // Update selected color based on center position
-    setTimeout(() => {
-      const centerIndex = Math.floor(colorOptions.length / 2);
-      const centerColor = currentColors[centerIndex];
-      if (centerColor) {
-        setSelectedColor(centerColor.id);
-      }
-    }, 0);
-  };
-
-  // Center specific color to the marker position
-  const centerColorToMarker = (colorId: string) => {
-    setCurrentColors(prev => {
-      const newColors = [...prev];
-      let attempts = 0;
-      const maxAttempts = newColors.length;
-
-      while (attempts < maxAttempts) {
-        const centerIndex = Math.floor(newColors.length / 2);
-        if (newColors[centerIndex]?.id === colorId) {
-          break;
-        }
-        newColors.unshift(newColors.pop()!);
-        attempts++;
-      }
-
-      return newColors;
-    });
-
-    setSelectedColor(colorId);
-  };
-
-  // Handle size dialer scroll with array rotation
-  const handleSizeScroll = (direction: 'left' | 'right') => {
-    setCurrentSizes(prev => {
-      const newSizes = [...prev];
-      if (direction === 'right') {
-        newSizes.unshift(newSizes.pop()!);
-      } else {
-        newSizes.push(newSizes.shift()!);
-      }
-      return newSizes;
-    });
-
-    // Update selected size based on center position
-    setTimeout(() => {
-      const centerIndex = Math.floor(sizeOptions.length / 2);
-      const centerSize = currentSizes[centerIndex];
-      if (centerSize) {
-        setSelectedSize(centerSize.id);
-      }
-    }, 0);
-  };
-
-  // Center specific size to the marker position
-  const centerSizeToMarker = (sizeId: string) => {
-    setCurrentSizes(prev => {
-      const newSizes = [...prev];
-      let attempts = 0;
-      const maxAttempts = newSizes.length;
-
-      while (attempts < maxAttempts) {
-        const centerIndex = Math.floor(newSizes.length / 2);
-        if (newSizes[centerIndex]?.id === sizeId) {
-          break;
-        }
-        newSizes.unshift(newSizes.pop()!);
-        attempts++;
-      }
-
-      return newSizes;
-    });
-
-    setSelectedSize(sizeId);
-  };
-
-  // Mouse drag handlers for scrolling
-  const handleDragStart = (dialer: 'color' | 'size', event: React.MouseEvent | React.TouchEvent) => {
-    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
-    setDragState({
-      isDragging: true,
-      dialer,
-      startX: clientX
-    });
-  };
-
-  const handleDragMove = (event: MouseEvent | TouchEvent) => {
-    if (!dragState.isDragging) return;
-
-    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
-    const deltaX = clientX - dragState.startX;
-    const dragThreshold = 40;
-
-    if (Math.abs(deltaX) > dragThreshold) {
-      if (dragState.dialer === 'color') {
-        handleColorScroll(deltaX > 0 ? 'right' : 'left');
-      } else if (dragState.dialer === 'size') {
-        handleSizeScroll(deltaX > 0 ? 'right' : 'left');
-      }
-
-      setDragState(prev => ({
-        ...prev,
-        startX: clientX
-      }));
-    }
-  };
-
-  const handleDragEnd = () => {
-    setDragState({
-      isDragging: false,
-      dialer: null,
-      startX: 0
-    });
-  };
-
-  // Add global event listeners
-  useEffect(() => {
-    document.addEventListener('mousemove', handleDragMove);
-    document.addEventListener('touchmove', handleDragMove as any, { passive: false });
-    document.addEventListener('mouseup', handleDragEnd);
-    document.addEventListener('touchend', handleDragEnd);
-    document.addEventListener('mouseleave', handleDragEnd);
-
-    return () => {
-      document.removeEventListener('mousemove', handleDragMove);
-      document.removeEventListener('touchmove', handleDragMove as any);
-      document.removeEventListener('mouseup', handleDragEnd);
-      document.removeEventListener('touchend', handleDragEnd);
-      document.removeEventListener('mouseleave', handleDragEnd);
-    };
-  }, [dragState]);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
       {/* Responsive Container */}
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-2 sm:p-4">
-        {/* Mobile Frame */}
-        <div className="w-full max-w-sm mx-auto lg:mx-0">
           {/* Phone Container */}
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
 
@@ -356,7 +213,7 @@ function App() {
               <p className="text-xs sm:text-sm text-gray-500 mb-4 px-4 sm:px-6">Product No: TS4236987</p>
 
               {/* Product Features */}
-              <div className="px-4 sm:px-6 space-y-2 mb-20 sm:mb-28">
+              <div className="px-4 sm:px-6">
                 {productFeatures.map((feature, index) => (
                   <div key={index} className="flex items-center space-x-2">
                     <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
@@ -365,137 +222,166 @@ function App() {
                 ))}
               </div>
 
-              {/* Nested Semicircle Selection Interface */}
-              <div className="relative w-full h-40 sm:h-20 flex justify-center items-center">
-                {/* Container for nested semicircles */}
-                <div className="relative h-32 sm:h-44 w-full max-w-sm sm:max-w-none">
-                  
-                  {/* Dialer Marker - Top Center */}
-                  <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 z-50">
-                    <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-gray-800"></div>
-                  </div>
+              {/* Circular Dialer Selection Interface */}
+              <div className="relative top-[170px]">
+                <div className="relative w-80 h-80 mx-auto">
 
-                  {/* First Semicircle (Outermost) - Colors */}
-                  <div className="absolute inset-0 flex justify-center items-end">
-                    <div className="w-72 h-36 sm:w-[28rem] sm:h-48 rounded-t-full border-2 flex justify-center items-center relative" style={{ backgroundColor: '#f7f7f7' }}>
-                      {/* Color options positioned in a semicircle shape */}
-                      {currentColors.map((color, index) => {
-                        const total = currentColors.length;
-                        // Semicircle: 180 degrees from 0 to 180, positioned along the arc
-                        const angle = (index * 180) / (total - 1);
-                        const radian = (angle * Math.PI) / 180;
-                        const radius = window.innerWidth < 640 ? 120 : 165; // Smaller radius for mobile
-                        const x = Math.cos(radian) * radius;
-                        const y = Math.sin(radian) * radius;
-                        const isSelected = selectedColor === color.id;
+                  {/* Outer Circle - Colors */}
+                  <div className="absolute inset-0 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
+                    <div className="absolute inset-4 rounded-full bg-white shadow-inner"></div>
 
-                        return (
-                          <button
-                            key={`${color.id}-${index}`}
-                            onClick={() => centerColorToMarker(color.id)}
-                            className={`absolute w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 transition-all duration-30000 shadow-lg focus:outline-none cursor-pointer ${isSelected
-                              ? ' scale-110'
-                              : ' hover:scale-110'
-                              }`}
-                            style={{
-                              backgroundColor: color.color,
-                              left: `calc(50% + ${x}px - ${window.innerWidth < 640 ? 12 : 16}px)`,
-                              top: `calc(50% - ${Math.abs(y)}px - ${window.innerWidth < 640 ? -55 : -75}px)`,
-                              boxShadow: color.color === '#FFFFFF' ? 'inset 0 0 0 1px #e5e7eb' : 'none',
-                              zIndex: isSelected ? 30 : 20,
-                            }}
-                            title={color.name}
-                          />
-                        );
-                      })}
+                    {/* Color Selection Marker */}
+                    <div className="absolute w-3 h-3 bg-white rounded-full border-2 border-white shadow-lg"
+                      style={{
+                        left: 'calc(50% + 100px)',
+                        top: 'calc(50% - 100px)',
+                        transform: 'translate(-50%, -50%)'
+                      }}>
                     </div>
-                  </div>
 
-                  {/* Second Semicircle - Sizes */}
-                  <div className="absolute inset-0 flex justify-center items-end">
-                    <div className="w-56 h-28 sm:w-72 sm:h-36 rounded-t-full border-2 flex justify-center items-center relative" style={{ backgroundColor: '#f7f7f7' }}>
-                      {/* Size options positioned around the semicircle */}
-                      {currentSizes.map((size, index) => {
-                        const total = currentSizes.length;
-                        // Semicircle: 180 degrees from 0 to 180, positioned in the middle of the semicircle
-                        const angle = (index * 180) / (total - 1);
-                        const radian = (angle * Math.PI) / 180;
-                        const radius = window.innerWidth < 640 ? 85 : 115; // Smaller radius for mobile
-                        const x = Math.cos(radian) * radius;
-                        const y = Math.sin(radian) * radius;
-                        const isSelected = selectedSize === size.id;
+                    {/* Color Dialer Container */}
+                    <div
+                      className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out"
+                      style={{ transform: `rotate(${colorRotation}deg)` }}
+                    >
+                      <div className="relative w-80 h-80">
+                        {colorOptions.map((color, index) => {
+                          const angle = (index / colorOptions.length) * 360;
+                          const radius = 140;
+                          const x = Math.cos(angle * Math.PI / 180) * radius;
+                          const y = Math.sin(angle * Math.PI / 180) * radius;
 
-                        return (
-                          <button
-                            key={`${size.id}-${index}`}
-                            onClick={() => {
-                              if (size.available) {
-                                centerSizeToMarker(size.id);
-                              }
-                            }}
-                            disabled={!size.available}
-                            className={`absolute w-6 h-6 sm:w-8 sm:h-8 text-xs font-medium transition-all duration-300 cursor-pointer ${isSelected
-                              ? 'scale-110'
-                              : size.available
-                                ? ''
-                                : 'cursor-not-allowed'
-                              }`}
-                            style={{
-                              left: `calc(50% + ${x}px - ${window.innerWidth < 640 ? 12 : 16}px)`,
-                              top: `calc(50% - ${Math.abs(y)}px - ${window.innerWidth < 640 ? -40 : -50}px)`,
-                              zIndex: isSelected ? 25 : 15,
-                              color: isSelected ? '#000000' : '#6B7280',
-                            }}
-                          >
-                            {size.name}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+                          return (
+                            <button
+                              key={color.id}
+                              onClick={() => setSelectedColor(color.id)}
+                              className={`absolute w-8 h-8 rounded-full border-1 border-gray-300 transition-all duration-200 ${selectedColor === color.id
+                                  ? 'scale-125 border-orange-500 shadow-lg'
+                                  : 'border-gray-300'
+                                }`}
+                              style={{
+                                backgroundColor: color.color,
+                                left: `calc(50% + ${x}px)`,
+                                top: `calc(50% + ${y}px)`,
+                                transform: `translate(-50%, -50%) rotate(${-colorRotation}deg)`,
+                                boxShadow: color.color === '#FFFFFF' ? 'inset 0 0 0 1px #e5e7eb' : 'none',
+                              }}
+                              title={color.name}
+                            ></button>
+                          );
+                        })}
 
-                  {/* Third Semicircle - Quantities */}
-                  <div className="absolute inset-0 flex justify-center items-end">
-                    <div className="w-36 h-18 sm:w-48 sm:h-24 rounded-t-full border-2 flex justify-center items-center relative" style={{ backgroundColor: '#f7f7f7' }}>
-                      {/* Quantity controls in center */}
-                      <div className="flex flex-col items-center">
-                        {/* Quantity Display */}
-                        <span className="text-black font-bold text-base sm:text-lg mb-4 sm:mb-6 select-none">{quantity}</span>
-                        
-                        {/* Quantity Controls */}
-                        <div className="flex items-center space-x-16 sm:space-x-24">
-                          {/* Decrease Button */}
-                          <button
-                            onClick={decrementQuantity}
-                            className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center font-bold text-sm sm:text-base transition disabled:opacity-50 z-40"
-                            disabled={quantity <= 1}
-                            aria-label="Decrease quantity"
-                          >
-                            –
-                          </button>
-                          
-                          {/* Increase Button */}
-                          <button
-                            onClick={incrementQuantity}
-                            className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center font-bold text-sm sm:text-base transition z-40"
-                            aria-label="Increase quantity"
-                          >
-                            +
-                          </button>
-                        </div>
+                        {/* Color Selection Indicator */}
+                        {selectedColor && (() => {
+                          const colorIndex = colorOptions.findIndex(c => c.id === selectedColor);
+                          const angle = (colorIndex / colorOptions.length) * 360;
+                          const radius = 140;
+                          const x = Math.cos(angle * Math.PI / 180) * radius;
+                          const y = Math.sin(angle * Math.PI / 180) * radius;
+
+                          return (
+                            <div
+                              className="absolute w-0 h-0 border-l-4 border-r-4 border-b-6 border-transparent border-b-orange-500"
+                              style={{
+                                left: `calc(50% + ${x}px)`,
+                                top: `calc(50% + ${y - 20}px)`,
+                                transform: `translate(-50%, -50%) rotate(${-colorRotation}deg)`
+                              }}
+                            ></div>
+                          );
+                        })()}
                       </div>
                     </div>
                   </div>
 
-                  {/* Fourth Semicircle (Innermost) - Buy Button */}
-                  <div className="absolute inset-0 flex justify-center items-end">
-                    <div className="w-16 h-8 sm:w-28 sm:h-16 flex justify-center items-center relative">
-                      <button
-                        onClick={handleBuy}
-                        className="w-12 h-12 sm:w-12 sm:h-12 bg-orange-500 text-white font-bold text-xs sm:text-sm rounded-full flex items-center justify-center shadow-xl transition-all duration-300 focus:outline-none z-35"
-                      >
-                        BUY
-                      </button>
+                  {/* Middle Circle - Sizes */}
+                  <div className="absolute inset-12 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
+                    <div className="absolute inset-4 rounded-full bg-white shadow-inner"></div>
+
+                    {/* Size Dialer Container */}
+                    <div
+                      className="absolute inset-4 flex items-center justify-center transition-transform duration-500 ease-in-out"
+                      style={{ transform: `rotate(${sizeRotation}deg)` }}
+                    >
+                      <div className="relative w-48 h-48">
+                        {sizeOptions.map((size, index) => {
+                          const angle = (index / (sizeOptions.length - 1)) * 180 - 90; // 180 degree arc for sizes
+                          const radius = 90;
+                          const x = Math.cos(angle * Math.PI / 180) * radius;
+                          const y = Math.sin(angle * Math.PI / 180) * radius;
+
+                          return (
+                            <button
+                              key={size.id}
+                              onClick={() => {
+                                if (size.available) {
+                                  setSelectedSize(size.id);
+                                }
+                              }}
+                              disabled={!size.available}
+                              className={`absolute w-10 h-10 transition-all duration-200 flex items-center justify-center font-semibold ${selectedSize === size.id
+                                  ? 'scale-125 text-black'
+                                  : size.available
+                                    ? 'text-gray-600'
+                                    : 'text-gray-400 cursor-not-allowed'
+                                }`}
+                              style={{
+                                left: `calc(50% + ${x}px)`,
+                                top: `calc(50% + ${y}px)`,
+                                transform: `translate(-50%, -50%) rotate(${-sizeRotation}deg)`
+                              }}
+                            >
+                              {size.name}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Inner Circle - Quantity and Buy */}
+                  <div className="absolute inset-24 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
+                    <div className="absolute inset-4 rounded-full bg-white shadow-inner"></div>
+
+                    {/* Quantity and Buy Controls */}
+                    <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out">
+                      <div className="text-center">
+                        {/* Quantity Display */}
+                        <div className="flex items-center justify-center space-x-2 mb-2">
+                          <div className="w-8 h-6 bg-gray-100 rounded flex items-center justify-center font-semibold text-gray-700 text-xs">
+                            {quantity}
+                          </div>
+                        </div>
+                        
+                        {/* Quantity Controls and Buy Button */}
+                        <div className='flex items-center justify-center space-x-2'>
+                          <button
+                            onClick={decrementQuantity}
+                            className="w-6 h-6 flex items-center justify-center text-gray-600 hover:text-orange-500 transition-colors text-xs"
+                            disabled={quantity <= 1}
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                            </svg>
+                          </button>
+                          
+                          <button
+                            onClick={handleBuy}
+                            className="w-12 h-12 bg-orange-500 text-white rounded-full font-semibold text-xs hover:bg-orange-600 transition-colors duration-200 shadow-lg"
+                          >
+                            BUY
+                          </button>
+
+                          <button
+                            onClick={incrementQuantity}
+                            className="w-6 h-6 flex items-center justify-center text-gray-600 hover:text-orange-500 transition-colors text-xs"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -506,7 +392,6 @@ function App() {
             {/* Bottom Safe Area */}
             <div className="h-6 bg-white"></div>
           </div>
-        </div>
       </div>
     </div>
   );
