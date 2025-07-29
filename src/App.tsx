@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft , MoreHorizontal, Minus, Plus, Star, Shirt } from 'lucide-react';
+import { ChevronLeft, MoreHorizontal, Minus, Plus, Star, Shirt } from 'lucide-react';
 
 interface ColorOption {
   id: string;
@@ -25,7 +25,8 @@ const colorOptions: ColorOption[] = [
   { id: 'green', name: 'Green', color: '#10B981' },
   { id: 'teal', name: 'Teal', color: '#0D9488' },
   { id: 'blue', name: 'Blue', color: '#3B82F6' },
-  
+  { id: 'brown', name: 'Brown', color: '#854D0E' },
+
 ];
 
 const sizeOptions: SizeOption[] = [
@@ -93,313 +94,315 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
       {/* Responsive Container */}
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-2 sm:p-4">
-                      {/* Phone Container */}
-            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 425 ? '740px' : '770px' }}>
+        {/* Phone Container */}
+        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 425 ? '740px' : '770px', borderRadius: '35px' }}>
 
-            {/* Header */}
-            <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <ChevronLeft  className="w-5 h-5 text-gray-700" />
-              </button>
-              <div className="flex space-x-1">
-                {Array.from({ length: Math.max(quantity, 3) }, (_, index) => (
-                  <div
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index < quantity ? 'bg-orange-500' : 'bg-gray-300'
-                      }`}
-                  />
-                ))}
-              </div>
-              <div className="relative">
-                {/* <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          {/* Header */}
+          <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
+            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+              <ChevronLeft className="w-5 h-5 text-gray-700" />
+            </button>
+            <div className="flex space-x-1">
+              {Array.from({ length: Math.max(quantity, 3) }, (_, index) => (
+                <div
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${index < quantity ? 'bg-orange-500' : 'bg-gray-300'
+                    }`}
+                />
+              ))}
+            </div>
+            <div className="relative">
+              {/* <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                   <MoreHorizontal className="w-5 h-5 text-gray-700" />
                 </button> */}
-                {/* Cart Shirt Image with Badge */}
-                {showCart && (
-                  <div className={`absolute -top-2 -right-2 transition-all duration-500 ${cartAnimation ? 'scale-110' : 'scale-100'}`}>
-                    <div className="relative">
-                      <img
-                        src="https://pics.clipartpng.com/midle/Male_White_Shirt_PNG_Clipart-942.png"
-                        alt="Cart Shirt"
-                        className="w-8 h-8 object-contain"
-                        style={{
-                          filter: selectedColor === 'white' ? 'brightness(1.1) saturate(0.9)' :
-                            selectedColor === 'black' ? 'brightness(0.4) saturate(0.6)' :
-                              selectedColor === 'gray' ? 'brightness(0.7) saturate(0.7) grayscale(0.4)' :
-                                selectedColor === 'navy' ? 'brightness(0.6) saturate(1.3) hue-rotate(240deg)' :
-                                  selectedColor === 'pink' ? 'brightness(1.0) saturate(1.6) hue-rotate(320deg)' :
-                                    selectedColor === 'teal' ? 'brightness(0.8) saturate(1.4) hue-rotate(180deg)' :
-                                      selectedColor === 'orange' ? 'brightness(1.0) saturate(1.5) hue-rotate(30deg)' :
-                                        selectedColor === 'yellow' ? 'brightness(1.2) saturate(1.3) hue-rotate(60deg)' :
-                                          selectedColor === 'red' ? 'brightness(0.9) saturate(1.6) hue-rotate(0deg)' :
-                                            selectedColor === 'green' ? 'brightness(0.8) saturate(1.4) hue-rotate(120deg)' :
-                                              selectedColor === 'purple' ? 'brightness(0.7) saturate(1.5) hue-rotate(280deg)' :
-                                                'none'
-                        }}
-                      />
-                      <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
-                        {cartItems}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Product Image */}
-            <div className="px-4 sm:px-6 py-6 sm:py-8 bg-gray-50">
-              <div className="relative">
-                <div className="w-full h-48 relative ">
-                  {/* Base shirt image */}
-                  <div className="relative w-full h-full">
-                    {/* SVG Filter Definitions */}
-                    <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-                      <defs>
-                        <filter id="colorFilter">
-                          <feColorMatrix
-                            type="matrix"
-                            values={selectedColor === 'white' ? '1 0 0 0 0.2 0 1 0 0 0.2 0 0 1 0 0.2 0 0 0 1 0' :
-                              selectedColor === 'black' ? '0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.1 0 0 0 0 0 1 0' :
-                                selectedColor === 'gray' ? '0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0 0 0 1 0' :
-                                  selectedColor === 'navy' ? '0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0 0 0 1 0' :
-                                    selectedColor === 'pink' ? '0.8 0.2 0.8 0 0 0.2 0.1 0.4 0 0 0.2 0.1 0.4 0 0 0 0 0 1 0' :
-                                      selectedColor === 'teal' ? '0.1 0.4 0.4 0 0 0.1 0.4 0.4 0 0 0.1 0.4 0.4 0 0 0 0 0 1 0' :
-                                        selectedColor === 'orange' ? '0.8 0.4 0.1 0 0 0.4 0.2 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                          selectedColor === 'yellow' ? '0.8 0.8 0.1 0 0 0.8 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                            selectedColor === 'red' ? '0.8 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                              selectedColor === 'green' ? '0.1 0.6 0.1 0 0 0.1 0.6 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                                selectedColor === 'purple' ? '0.4 0.1 0.6 0 0 0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0 0 0 1 0' :
-                                                  '1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'}
-                          />
-                        </filter>
-                      </defs>
-                    </svg>
-
-                    {/* Multiple Shirts Based on Quantity */}
-                    {Array.from({ length: quantity }, (_, index) => (
-                      <img
-                        key={index}
-                        src="https://pics.clipartpng.com/midle/Male_White_Shirt_PNG_Clipart-942.png"
-                        alt={`Surf T-Shirt ${index + 1}`}
-                        className="absolute w-full h-full object-contain hover:scale-105 transition-all duration-300"
-                        style={{
-                          transform: `scale(${selectedSize === 'xs' ? 0.7 :
-                            selectedSize === 's' ? 0.8 :
-                              selectedSize === 'm' ? 0.9 :
-                                selectedSize === 'l' ? 1.0 :
-                                  selectedSize === 'xl' ? 1.1 :
-                                    selectedSize === 'xxl' ? 1.2 : 1.0
-                            }) translate(${index * 15}px, ${index * 10}px)`,
-                          filter: 'url(#colorFilter)',
-                          zIndex: index + 1
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Size indicator */}
-                  <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                    {selectedSize.toUpperCase()}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Product Info */}
-            <div className=" rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
-              <div className="flex justify-between items-start px-4 sm:px-6">
-                <h1 className="text-lg sm:text-xl font-bold text-gray-900">SURF T-SHIRT</h1>
-                <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
-                  <span className='bg-yellow-500' style={{ borderRadius: '100%', padding: '2px 4px 1px' }}>$</span>  5.89
-                </span>
-              </div>
-
-              <p className="text-xs sm:text-sm text-gray-500 mb-4 px-4 sm:px-6">Product No: TS4236987</p>
-
-              {/* Product Features */}
-              <div className="px-4 sm:px-6">
-                {productFeatures.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
-                    <span className="text-sm text-gray-600">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Circular Dialer Selection Interface */}
-              <div className="relative top-[80px]">
-                <div className="relative w-80 h-80 mx-auto">
-                  
-                  {/* Dialer Marker - Top Center */}
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
-                    <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-gray-800"></div>
-                  </div>
-
-                  {/* Outer Circle - Colors */}
-                  <div className="absolute inset-0 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
-                    <div className="absolute inset-4 rounded-full bg-white"></div>
-
-                    {/* Color Selection Marker */}
-                    <div className="absolute w-3 h-3 bg-white rounded-full border-2 border-white shadow-lg"
+              {/* Cart Shirt Image with Badge */}
+              {showCart && (
+                <div className={`absolute -top-2 -right-2 transition-all duration-500 ${cartAnimation ? 'scale-110' : 'scale-100'}`}>
+                  <div className="relative">
+                    <img
+                      src="https://pics.clipartpng.com/midle/Male_White_Shirt_PNG_Clipart-942.png"
+                      alt="Cart Shirt"
+                      className="w-8 h-8 object-contain"
                       style={{
-                        left: 'calc(50% + 100px)',
-                        top: 'calc(50% - 100px)',
-                        transform: 'translate(-50%, -50%)'
-                      }}>
-                    </div>
-
-                    {/* Color Dialer Container */}
-                    <div
-                      className="absolute inset-0 flex items-center justify-center transition-transform duration-200 ease-in-out"
-                      style={{ transform: `rotate(${colorRotation}deg)` }}
-                    >
-                      <div className="relative w-80 h-80">
-                        {colorOptions.map((color, index) => {
-                          const angle = (index / colorOptions.length) * 360;
-                          const radius = 140;
-                          const x = Math.cos(angle * Math.PI / 180) * radius;
-                          const y = Math.sin(angle * Math.PI / 180) * radius;
-
-                          return (
-                            <button
-                              key={color.id}
-                              onClick={() => setSelectedColor(color.id)}
-                              className={`absolute w-6 h-6 rounded-full border-1 border-gray-300 transition-all duration-200 ${selectedColor === color.id
-                                  ? 'scale-125 border-orange-500 shadow-lg'
-                                  : 'border-gray-300'
-                                }`}
-                              style={{
-                                backgroundColor: color.color,
-                                left: `calc(50% + ${x}px)`,
-                                top: `calc(50% + ${y}px)`,
-                                transform: `translate(-50%, -50%) rotate(${-colorRotation}deg)`,
-                                boxShadow: color.color === '#FFFFFF' ? 'inset 0 0 0 1px #e5e7eb' : 'none',
-                              }}
-                            ></button>
-                          );
-                        })}
-
-                        {/* Color Selection Indicator */}
-                        {selectedColor && (() => {
-                          const colorIndex = colorOptions.findIndex(c => c.id === selectedColor);
-                          const angle = (colorIndex / colorOptions.length) * 360;
-                          const radius = 140;
-                          const x = Math.cos(angle * Math.PI / 180) * radius;
-                          const y = Math.sin(angle * Math.PI / 180) * radius;
-
-                          return (
-                            <div
-                              className="absolute w-0 h-0 border-l-4 border-r-4 border-b-6 border-transparent border-b-orange-500"
-                              style={{
-                                left: `calc(50% + ${x}px)`,
-                                top: `calc(50% + ${y - 20}px)`,
-                                transform: `translate(-50%, -50%) rotate(${-colorRotation}deg)`
-                              }}
-                            ></div>
-                          );
-                        })()}
-                      </div>
+                        filter: selectedColor === 'white' ? 'brightness(1.1) saturate(0.9)' :
+                          selectedColor === 'black' ? 'brightness(0.4) saturate(0.6)' :
+                            selectedColor === 'gray' ? 'brightness(0.7) saturate(0.7) grayscale(0.4)' :
+                              selectedColor === 'navy' ? 'brightness(0.6) saturate(1.3) hue-rotate(240deg)' :
+                                selectedColor === 'pink' ? 'brightness(1.0) saturate(1.6) hue-rotate(320deg)' :
+                                  selectedColor === 'teal' ? 'brightness(0.8) saturate(1.4) hue-rotate(180deg)' :
+                                    selectedColor === 'orange' ? 'brightness(1.0) saturate(1.5) hue-rotate(30deg)' :
+                                      selectedColor === 'yellow' ? 'brightness(1.2) saturate(1.3) hue-rotate(60deg)' :
+                                        selectedColor === 'red' ? 'brightness(0.9) saturate(1.6) hue-rotate(0deg)' :
+                                          selectedColor === 'green' ? 'brightness(0.8) saturate(1.4) hue-rotate(120deg)' :
+                                            selectedColor === 'purple' ? 'brightness(0.7) saturate(1.5) hue-rotate(280deg)' :
+                                              'none'
+                      }}
+                    />
+                    <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
+                      {cartItems}
                     </div>
                   </div>
-
-                  {/* Middle Circle - Sizes */}
-                  <div className="absolute inset-12 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
-                    <div className="absolute inset-4 rounded-full bg-white "></div>
-
-                    {/* Size Dialer Container */}
-                    <div
-                      className="absolute inset-4 flex items-center justify-center transition-transform duration-200 ease-in-out"
-                      style={{ transform: `rotate(${sizeRotation}deg)` }}
-                    >
-                      <div className="relative w-48 h-48">
-                        {sizeOptions.map((size, index) => {
-                          const angle = (index / (sizeOptions.length - 1)) * 180 - 90; // 180 degree arc for sizes
-                          const radius = 90;
-                          const x = Math.cos(angle * Math.PI / 180) * radius;
-                          const y = Math.sin(angle * Math.PI / 180) * radius;
-
-                          return (
-                            <button
-                              key={size.id}
-                              onClick={() => {
-                                if (size.available) {
-                                  setSelectedSize(size.id);
-                                }
-                              }}
-                              disabled={!size.available}
-                              className={`absolute w-10 h-10 transition-all duration-200 flex items-center justify-center font-semibold ${selectedSize === size.id
-                                  ? 'scale-125 text-black'
-                                  : size.available
-                                    ? 'text-gray-600'
-                                    : 'text-gray-400 cursor-not-allowed'
-                                }`}
-                              style={{
-                                left: `calc(50% + ${x}px)`,
-                                top: `calc(50% + ${y}px)`,
-                                transform: `translate(-50%, -50%) rotate(${-sizeRotation}deg)`
-                              }}
-                            >
-                              {size.name}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Inner Circle - Quantity and Buy */}
-                  <div className="absolute inset-24 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
-                    <div className="absolute inset-4 rounded-full bg-white "></div>
-
-                    {/* Quantity and Buy Controls */}
-                    <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out">
-                      <div className="text-center">
-                        {/* Quantity Display */}
-                        <div className="flex items-center justify-center space-x-2 mb-2">
-                          <div className="w-6 h-6  flex items-center justify-center font-semibold text-gray-700 text-s">
-                            {quantity}
-                          </div>
-                        </div>
-                        
-                        {/* Quantity Controls and Buy Button */}
-                        <div className='flex items-center justify-center space-x-2'>
-                          <button
-                            onClick={decrementQuantity}
-                            className="w-6 h-6 flex items-center justify-center text-gray-600 hover:text-orange-500 transition-colors text-xs"
-                            disabled={quantity <= 1}
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                            </svg>
-                          </button>
-                          
-                          <button
-                            onClick={handleBuy}
-                            className="w-12 h-12 bg-orange-500 text-white rounded-full font-semibold text-xs hover:bg-orange-600 transition-colors duration-200 shadow-lg"
-                          >
-                            BUY
-                          </button>
-
-                          <button
-                            onClick={incrementQuantity}
-                            className="w-6 h-6 flex items-center justify-center text-gray-600 hover:text-orange-500 transition-colors text-xs"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
+              )}
+            </div>
+          </div>
+
+          {/* Product Image */}
+          <div className="px-4 sm:px-6 py-6 sm:py-8 bg-gray-50">
+            <div className="relative">
+              <div className="w-full h-48 relative ">
+                {/* Base shirt image */}
+                <div className="relative w-full h-full">
+                  {/* SVG Filter Definitions */}
+                  <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+                    <defs>
+                      <filter id="colorFilter">
+                        <feColorMatrix
+                          type="matrix"
+                          values={selectedColor === 'white' ? '1 0 0 0 0.2 0 1 0 0 0.2 0 0 1 0 0.2 0 0 0 1 0' :
+                            selectedColor === 'black' ? '0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.1 0 0 0 0 0 1 0' :
+                              selectedColor === 'gray' ? '0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0 0 0 1 0' :
+                                selectedColor === 'navy' ? '0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0 0 0 1 0' :
+                                  selectedColor === 'pink' ? '0.8 0.2 0.8 0 0 0.2 0.1 0.4 0 0 0.2 0.1 0.4 0 0 0 0 0 1 0' :
+                                    selectedColor === 'teal' ? '0.1 0.4 0.4 0 0 0.1 0.4 0.4 0 0 0.1 0.4 0.4 0 0 0 0 0 1 0' :
+                                      selectedColor === 'orange' ? '0.8 0.4 0.1 0 0 0.4 0.2 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                        selectedColor === 'yellow' ? '0.8 0.8 0.1 0 0 0.8 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                          selectedColor === 'red' ? '0.8 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                            selectedColor === 'green' ? '0.1 0.6 0.1 0 0 0.1 0.6 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                              selectedColor === 'purple' ? '0.4 0.1 0.6 0 0 0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0 0 0 1 0' :
+                                                selectedColor === 'brown' ? '0.4 0.2 0.1 0 0 0.2 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0 0 0 1 0' :
+                                                  '1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'
+                          }
+                        />
+                      </filter>
+                    </defs>
+                  </svg>
+
+                  {/* Multiple Shirts Based on Quantity */}
+                  {Array.from({ length: quantity }, (_, index) => (
+                    <img
+                      key={index}
+                      src="https://pics.clipartpng.com/midle/Male_White_Shirt_PNG_Clipart-942.png"
+                      alt={`Surf T-Shirt ${index + 1}`}
+                      className="absolute w-full h-full object-contain hover:scale-105 transition-all duration-300"
+                      style={{
+                        transform: `scale(${selectedSize === 'xs' ? 0.7 :
+                          selectedSize === 's' ? 0.8 :
+                            selectedSize === 'm' ? 0.9 :
+                              selectedSize === 'l' ? 1.0 :
+                                selectedSize === 'xl' ? 1.1 :
+                                  selectedSize === 'xxl' ? 1.2 : 1.0
+                          }) translate(${index * 15}px, ${index * 10}px)`,
+                        filter: 'url(#colorFilter)',
+                        zIndex: index + 1
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Size indicator */}
+                {/* <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                    {selectedSize.toUpperCase()}
+                  </div> */}
               </div>
             </div>
-
-            {/* Bottom Safe Area */}
-            <div className="h-6 bg-white"></div>
           </div>
+
+          {/* Product Info */}
+          <div className=" rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
+            <div className="flex justify-between items-start px-4 sm:px-6">
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900">SURF T-SHIRT</h1>
+              <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
+                <span className='bg-yellow-500' style={{ borderRadius: '100%', padding: '2px 4px 1px' }}>$</span>  5.89
+              </span>
+            </div>
+
+            <p className="text-xs sm:text-sm text-gray-500 mb-4 px-4 sm:px-6">Product No: TS4236987</p>
+
+            {/* Product Features */}
+            <div className="px-4 sm:px-6">
+              {productFeatures.map((feature, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
+                  <span className="text-sm text-gray-600">{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Circular Dialer Selection Interface */}
+            <div className="relative top-[95px]">
+              <div className="relative w-80 h-80 mx-auto">
+
+                {/* Dialer Marker - Top Center */}
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
+                  <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-gray-800"></div>
+                </div>
+
+                {/* Outer Circle - Colors */}
+                <div className="absolute inset-0 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
+                  <div className="absolute inset-4 rounded-full bg-white"></div>
+
+                  {/* Color Selection Marker */}
+                  <div className="absolute w-3 h-3 bg-white rounded-full border-2 border-white shadow-lg"
+                    style={{
+                      left: 'calc(50% + 100px)',
+                      top: 'calc(50% - 100px)',
+                      transform: 'translate(-50%, -50%)'
+                    }}>
+                  </div>
+
+                  {/* Color Dialer Container */}
+                  <div
+                    className="absolute inset-0 flex items-center justify-center transition-transform duration-200 ease-in-out"
+                    style={{ transform: `rotate(${colorRotation}deg)` }}
+                  >
+                    <div className="relative w-80 h-80">
+                      {colorOptions.map((color, index) => {
+                        const angle = (index / colorOptions.length) * 360;
+                        const radius = 140;
+                        const x = Math.cos(angle * Math.PI / 180) * radius;
+                        const y = Math.sin(angle * Math.PI / 180) * radius;
+
+                        return (
+                          <button
+                            key={color.id}
+                            onClick={() => setSelectedColor(color.id)}
+                            className={`absolute w-6 h-6 rounded-full border-1 border-gray-300 transition-all duration-200 ${selectedColor === color.id
+                              ? 'scale-125 border-orange-500 shadow-lg'
+                              : 'border-gray-300'
+                              }`}
+                            style={{
+                              backgroundColor: color.color,
+                              left: `calc(50% + ${x}px)`,
+                              top: `calc(50% + ${y}px)`,
+                              transform: `translate(-50%, -50%) rotate(${-colorRotation}deg)`,
+                              boxShadow: color.color === '#FFFFFF' ? 'inset 0 0 0 1px #e5e7eb' : 'none',
+                            }}
+                          ></button>
+                        );
+                      })}
+
+                      {/* Color Selection Indicator */}
+                      {selectedColor && (() => {
+                        const colorIndex = colorOptions.findIndex(c => c.id === selectedColor);
+                        const angle = (colorIndex / colorOptions.length) * 360;
+                        const radius = 140;
+                        const x = Math.cos(angle * Math.PI / 180) * radius;
+                        const y = Math.sin(angle * Math.PI / 180) * radius;
+
+                        return (
+                          <div
+                            className="absolute w-0 h-0 border-l-4 border-r-4 border-b-6 border-transparent border-b-orange-500"
+                            style={{
+                              left: `calc(50% + ${x}px)`,
+                              top: `calc(50% + ${y - 20}px)`,
+                              transform: `translate(-50%, -50%) rotate(${-colorRotation}deg)`
+                            }}
+                          ></div>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Middle Circle - Sizes */}
+                <div className="absolute inset-12 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
+                  <div className="absolute inset-4 rounded-full bg-white "></div>
+
+                  {/* Size Dialer Container */}
+                  <div
+                    className="absolute inset-4 flex items-center justify-center transition-transform duration-200 ease-in-out"
+                    style={{ transform: `rotate(${sizeRotation}deg)` }}
+                  >
+                    <div className="relative w-48 h-48">
+                      {sizeOptions.map((size, index) => {
+                        const angle = (index / (sizeOptions.length - 1)) * 180 - 90; // 180 degree arc for sizes
+                        const radius = 90;
+                        const x = Math.cos(angle * Math.PI / 180) * radius;
+                        const y = Math.sin(angle * Math.PI / 180) * radius;
+
+                        return (
+                          <button
+                            key={size.id}
+                            onClick={() => {
+                              if (size.available) {
+                                setSelectedSize(size.id);
+                              }
+                            }}
+                            disabled={!size.available}
+                            className={`absolute w-10 h-10 transition-all duration-200 flex items-center justify-center font-semibold ${selectedSize === size.id
+                              ? 'scale-125 text-black'
+                              : size.available
+                                ? 'text-gray-600'
+                                : 'text-gray-400 cursor-not-allowed'
+                              }`}
+                            style={{
+                              left: `calc(50% + ${x}px)`,
+                              top: `calc(50% + ${y}px)`,
+                              transform: `translate(-50%, -50%) rotate(${-sizeRotation}deg)`
+                            }}
+                          >
+                            {size.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Inner Circle - Quantity and Buy */}
+                <div className="absolute inset-24 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
+                  <div className="absolute inset-4 rounded-full bg-white "></div>
+
+                  {/* Quantity and Buy Controls */}
+                  <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out">
+                    <div className="text-center relative -top-[10px]">
+                      {/* Quantity Display */}
+                      <div className="flex items-center justify-center space-x-2 mb-2">
+                        <div className="w-6 h-6  flex items-center justify-center font-semibold text-gray-700 text-s">
+                          {quantity}
+                        </div>
+                      </div>
+
+                      {/* Quantity Controls and Buy Button */}
+                      <div className='flex items-center justify-center space-x-2'>
+                        <button
+                          onClick={decrementQuantity}
+                          className="w-6 h-6 flex items-center justify-center text-gray-600 hover:text-orange-500 transition-colors text-xs"
+                          disabled={quantity <= 1}
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                          </svg>
+                        </button>
+
+                        <button
+                          onClick={handleBuy}
+                          className="w-12 h-12 bg-orange-500 text-white rounded-full font-semibold text-xs hover:bg-orange-600 transition-colors duration-200 shadow-lg"
+                        >
+                          BUY
+                        </button>
+
+                        <button
+                          onClick={incrementQuantity}
+                          className="w-6 h-6 flex items-center justify-center text-gray-600 hover:text-orange-500 transition-colors text-xs"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Safe Area */}
+          <div className="h-6 bg-white"></div>
+        </div>
       </div>
     </div>
   );
