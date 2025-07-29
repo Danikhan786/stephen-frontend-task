@@ -17,20 +17,25 @@ const colorOptions: ColorOption[] = [
   { id: 'white', name: 'White', color: '#FFFFFF' },
   { id: 'black', name: 'Black', color: '#000000' },
   { id: 'gray', name: 'Gray', color: '#6B7280' },
-  { id: 'navy', name: 'Navy', color: '#1E3A8A' },
+  { id: 'navy', name: 'Navy', color: '#0f43d9' },
   { id: 'pink', name: 'Pink', color: '#EC4899' },
-  { id: 'teal', name: 'Teal', color: '#0D9488' },
   { id: 'orange', name: 'Orange', color: '#F97316' },
+  { id: 'yellow', name: 'Yellow', color: '#FACC15' },
+  { id: 'red', name: 'Red', color: '#EF4444' },
+  { id: 'green', name: 'Green', color: '#10B981' },
+  { id: 'teal', name: 'Teal', color: '#0D9488' },
+  { id: 'blue', name: 'Blue', color: '#3B82F6' },
+  
 ];
 
 const sizeOptions: SizeOption[] = [
-  { id: 'xs', name: 'XS', available: true },
-  { id: 's', name: 'S', available: true },
-  { id: 'm', name: 'M', available: true },
-  { id: 'l', name: 'L', available: true },
-  { id: 'xl', name: 'XL', available: true },
-  { id: 'xxl', name: 'XXL', available: true },
   { id: 'xxxl', name: 'XXXL', available: true },
+  { id: 'xxl', name: 'XXL', available: true },
+  { id: 'xl', name: 'XL', available: true },
+  { id: 'l', name: 'L', available: true },
+  { id: 'm', name: 'M', available: true },
+  { id: 's', name: 'S', available: true },
+  // { id: 'xs', name: 'XS', available: true },
 
 ];
 
@@ -202,11 +207,11 @@ function App() {
             </div>
 
             {/* Product Info */}
-            <div className="py-4 sm:py-6 rounded-t-lg inset-shadow-sm">
-              <div className="flex justify-between items-start mb-4 px-4 sm:px-6">
+            <div className=" rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
+              <div className="flex justify-between items-start px-4 sm:px-6">
                 <h1 className="text-lg sm:text-xl font-bold text-gray-900">SURF T-SHIRT</h1>
-                <span className="bg-orange-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">
-                  $ 5.89
+                <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
+                  <span className='bg-yellow-500' style={{ borderRadius: '100%', padding: '2px 4px 1px' }}>$</span>  5.89
                 </span>
               </div>
 
@@ -223,12 +228,17 @@ function App() {
               </div>
 
               {/* Circular Dialer Selection Interface */}
-              <div className="relative top-[170px]">
+              <div className="relative top-[145px]">
                 <div className="relative w-80 h-80 mx-auto">
+                  
+                  {/* Dialer Marker - Top Center */}
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
+                    <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-gray-800"></div>
+                  </div>
 
                   {/* Outer Circle - Colors */}
                   <div className="absolute inset-0 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
-                    <div className="absolute inset-4 rounded-full bg-white shadow-inner"></div>
+                    <div className="absolute inset-4 rounded-full bg-white"></div>
 
                     {/* Color Selection Marker */}
                     <div className="absolute w-3 h-3 bg-white rounded-full border-2 border-white shadow-lg"
@@ -241,7 +251,7 @@ function App() {
 
                     {/* Color Dialer Container */}
                     <div
-                      className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out"
+                      className="absolute inset-0 flex items-center justify-center transition-transform duration-700 ease-in-out"
                       style={{ transform: `rotate(${colorRotation}deg)` }}
                     >
                       <div className="relative w-80 h-80">
@@ -255,7 +265,7 @@ function App() {
                             <button
                               key={color.id}
                               onClick={() => setSelectedColor(color.id)}
-                              className={`absolute w-8 h-8 rounded-full border-1 border-gray-300 transition-all duration-200 ${selectedColor === color.id
+                              className={`absolute w-6 h-6 rounded-full border-1 border-gray-300 transition-all duration-200 ${selectedColor === color.id
                                   ? 'scale-125 border-orange-500 shadow-lg'
                                   : 'border-gray-300'
                                 }`}
@@ -266,7 +276,6 @@ function App() {
                                 transform: `translate(-50%, -50%) rotate(${-colorRotation}deg)`,
                                 boxShadow: color.color === '#FFFFFF' ? 'inset 0 0 0 1px #e5e7eb' : 'none',
                               }}
-                              title={color.name}
                             ></button>
                           );
                         })}
@@ -296,11 +305,11 @@ function App() {
 
                   {/* Middle Circle - Sizes */}
                   <div className="absolute inset-12 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
-                    <div className="absolute inset-4 rounded-full bg-white shadow-inner"></div>
+                    <div className="absolute inset-4 rounded-full bg-white "></div>
 
                     {/* Size Dialer Container */}
                     <div
-                      className="absolute inset-4 flex items-center justify-center transition-transform duration-500 ease-in-out"
+                      className="absolute inset-4 flex items-center justify-center transition-transform duration-1000 ease-in-out"
                       style={{ transform: `rotate(${sizeRotation}deg)` }}
                     >
                       <div className="relative w-48 h-48">
@@ -341,14 +350,14 @@ function App() {
 
                   {/* Inner Circle - Quantity and Buy */}
                   <div className="absolute inset-24 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
-                    <div className="absolute inset-4 rounded-full bg-white shadow-inner"></div>
+                    <div className="absolute inset-4 rounded-full bg-white "></div>
 
                     {/* Quantity and Buy Controls */}
                     <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out">
                       <div className="text-center">
                         {/* Quantity Display */}
                         <div className="flex items-center justify-center space-x-2 mb-2">
-                          <div className="w-8 h-6 bg-gray-100 rounded flex items-center justify-center font-semibold text-gray-700 text-xs">
+                          <div className="w-6 h-6  flex items-center justify-center font-semibold text-gray-700 text-s">
                             {quantity}
                           </div>
                         </div>
