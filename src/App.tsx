@@ -94,8 +94,8 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
       {/* Responsive Container */}
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-2 sm:p-4">
-          {/* Phone Container */}
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                      {/* Phone Container */}
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 425 ? '740px' : '770px' }}>
 
             {/* Header */}
             <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
@@ -228,7 +228,7 @@ function App() {
               </div>
 
               {/* Circular Dialer Selection Interface */}
-              <div className="relative top-[145px]">
+              <div className="relative top-[80px]">
                 <div className="relative w-80 h-80 mx-auto">
                   
                   {/* Dialer Marker - Top Center */}
