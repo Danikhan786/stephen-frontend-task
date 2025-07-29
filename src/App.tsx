@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, MoreHorizontal, Minus, Plus, Star, Shirt } from 'lucide-react';
+import { ChevronLeft , MoreHorizontal, Minus, Plus, Star, Shirt } from 'lucide-react';
 
 interface ColorOption {
   id: string;
@@ -100,7 +100,7 @@ function App() {
             {/* Header */}
             <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
               <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <ArrowLeft className="w-5 h-5 text-gray-700" />
+                <ChevronLeft  className="w-5 h-5 text-gray-700" />
               </button>
               <div className="flex space-x-1">
                 {Array.from({ length: Math.max(quantity, 3) }, (_, index) => (
@@ -251,7 +251,7 @@ function App() {
 
                     {/* Color Dialer Container */}
                     <div
-                      className="absolute inset-0 flex items-center justify-center transition-transform duration-700 ease-in-out"
+                      className="absolute inset-0 flex items-center justify-center transition-transform duration-200 ease-in-out"
                       style={{ transform: `rotate(${colorRotation}deg)` }}
                     >
                       <div className="relative w-80 h-80">
@@ -309,7 +309,7 @@ function App() {
 
                     {/* Size Dialer Container */}
                     <div
-                      className="absolute inset-4 flex items-center justify-center transition-transform duration-1000 ease-in-out"
+                      className="absolute inset-4 flex items-center justify-center transition-transform duration-200 ease-in-out"
                       style={{ transform: `rotate(${sizeRotation}deg)` }}
                     >
                       <div className="relative w-48 h-48">
