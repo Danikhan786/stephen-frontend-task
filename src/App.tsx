@@ -17,15 +17,15 @@ const colorOptions: ColorOption[] = [
   { id: 'white', name: 'White', color: '#FFFFFF' },
   { id: 'black', name: 'Black', color: '#000000' },
   { id: 'gray', name: 'Gray', color: '#6B7280' },
-  { id: 'navy', name: 'Navy', color: '#0f43d9' },
   { id: 'pink', name: 'Pink', color: '#EC4899' },
   { id: 'orange', name: 'Orange', color: '#F97316' },
   { id: 'yellow', name: 'Yellow', color: '#FACC15' },
   { id: 'red', name: 'Red', color: '#EF4444' },
   { id: 'green', name: 'Green', color: '#10B981' },
-  { id: 'teal', name: 'Teal', color: '#0D9488' },
-  { id: 'blue', name: 'Blue', color: '#3B82F6' },
   { id: 'brown', name: 'Brown', color: '#854D0E' },
+  { id: 'indigo', name: 'Indigo', color: '#f9afaf' },
+  { id: 'lime', name: 'Lime', color: '#84CC16' },
+  { id: 'rose', name: 'Rose', color: '#c27ba0' },
 
 ];
 
@@ -103,7 +103,7 @@ function App() {
               <ChevronLeft className="w-5 h-5 text-gray-700" />
             </button>
             <div className="flex space-x-1">
-              {Array.from({ length: Math.max(quantity, 3) }, (_, index) => (
+              {Array.from({ length: 3 }, (_, index) => (
                 <div
                   key={index}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${index < quantity ? 'bg-orange-500' : 'bg-gray-300'
@@ -127,15 +127,17 @@ function App() {
                         filter: selectedColor === 'white' ? 'brightness(1.1) saturate(0.9)' :
                           selectedColor === 'black' ? 'brightness(0.4) saturate(0.6)' :
                             selectedColor === 'gray' ? 'brightness(0.7) saturate(0.7) grayscale(0.4)' :
-                              selectedColor === 'navy' ? 'brightness(0.6) saturate(1.3) hue-rotate(240deg)' :
-                                selectedColor === 'pink' ? 'brightness(1.0) saturate(1.6) hue-rotate(320deg)' :
-                                  selectedColor === 'teal' ? 'brightness(0.8) saturate(1.4) hue-rotate(180deg)' :
-                                    selectedColor === 'orange' ? 'brightness(1.0) saturate(1.5) hue-rotate(30deg)' :
-                                      selectedColor === 'yellow' ? 'brightness(1.2) saturate(1.3) hue-rotate(60deg)' :
-                                        selectedColor === 'red' ? 'brightness(0.9) saturate(1.6) hue-rotate(0deg)' :
-                                          selectedColor === 'green' ? 'brightness(0.8) saturate(1.4) hue-rotate(120deg)' :
-                                            selectedColor === 'purple' ? 'brightness(0.7) saturate(1.5) hue-rotate(280deg)' :
-                                              'none'
+                              selectedColor === 'pink' ? 'brightness(1.0) saturate(1.6) hue-rotate(320deg)' :
+                                selectedColor === 'orange' ? 'brightness(1.0) saturate(1.5) hue-rotate(30deg)' :
+                                  selectedColor === 'yellow' ? 'brightness(1.2) saturate(1.3) hue-rotate(60deg)' :
+                                    selectedColor === 'red' ? 'brightness(0.9) saturate(1.6) hue-rotate(0deg)' :
+                                      selectedColor === 'green' ? 'brightness(0.8) saturate(1.4) hue-rotate(120deg)' :
+                                                                                 selectedColor === 'brown' ? 'brightness(0.6) saturate(1.2) hue-rotate(30deg)' :
+                                           selectedColor === 'indigo' ? 'brightness(0.6) saturate(1.5) hue-rotate(240deg)' :
+                                             selectedColor === 'lime' ? 'brightness(0.9) saturate(1.3) hue-rotate(90deg)' :
+                                                                                               selectedColor === 'blue' ? 'brightness(0.8) saturate(1.4) hue-rotate(210deg)' :
+                                                  selectedColor === 'rose' ? 'brightness(0.8) saturate(1.3) hue-rotate(330deg)' :
+                                                   'none'
                       }}
                     />
                     <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
@@ -159,20 +161,21 @@ function App() {
                       <filter id="colorFilter">
                         <feColorMatrix
                           type="matrix"
-                          values={selectedColor === 'white' ? '1 0 0 0 0.2 0 1 0 0 0.2 0 0 1 0 0.2 0 0 0 1 0' :
-                            selectedColor === 'black' ? '0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.1 0 0 0 0 0 1 0' :
-                              selectedColor === 'gray' ? '0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0 0 0 1 0' :
-                                selectedColor === 'navy' ? '0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0 0 0 1 0' :
-                                  selectedColor === 'pink' ? '0.8 0.2 0.8 0 0 0.2 0.1 0.4 0 0 0.2 0.1 0.4 0 0 0 0 0 1 0' :
-                                    selectedColor === 'teal' ? '0.1 0.4 0.4 0 0 0.1 0.4 0.4 0 0 0.1 0.4 0.4 0 0 0 0 0 1 0' :
-                                      selectedColor === 'orange' ? '0.8 0.4 0.1 0 0 0.4 0.2 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                        selectedColor === 'yellow' ? '0.8 0.8 0.1 0 0 0.8 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                          selectedColor === 'red' ? '0.8 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                            selectedColor === 'green' ? '0.1 0.6 0.1 0 0 0.1 0.6 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                              selectedColor === 'purple' ? '0.4 0.1 0.6 0 0 0.1 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0 0 0 1 0' :
-                                                selectedColor === 'brown' ? '0.4 0.2 0.1 0 0 0.2 0.1 0.4 0 0 0.1 0.1 0.4 0 0 0 0 0 1 0' :
-                                                  '1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'
-                          }
+                                                     values={
+                             selectedColor === 'white' ? '1 0 0 0 0.2 0 1 0 0 0.2 0 0 1 0 0.2 0 0 0 1 0' :
+                               selectedColor === 'black' ? '0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.1 0 0 0 0 0 1 0' :
+                                 selectedColor === 'gray' ? '0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0 0 0 1 0' :
+                                   selectedColor === 'pink' ? '0.8 0.2 0.8 0 0 0.2 0.1 0.4 0 0 0.2 0.1 0.4 0 0 0 0 0 1 0' :
+                                     selectedColor === 'orange' ? '0.8 0.4 0.1 0 0 0.4 0.2 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                       selectedColor === 'yellow' ? '0.8 0.8 0.1 0 0 0.8 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                         selectedColor === 'red' ? '0.8 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                           selectedColor === 'green' ? '0.1 0.6 0.1 0 0 0.1 0.6 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                             selectedColor === 'brown' ? '0.3 0.15 0.05 0 0 0.15 0.08 0.02 0 0 0.05 0.02 0.01 0 0 0 0 0 1 0' :
+                                               selectedColor === 'indigo' ? '0.2 0.1 0.7 0 0 0.1 0.05 0.3 0 0 0.1 0.05 0.3 0 0 0 0 0 1 0' :
+                                                 selectedColor === 'lime' ? '0.4 0.8 0.1 0 0 0.4 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                                      selectedColor === 'rose' ? '0.6 0.3 0.5 0 0 0.3 0.2 0.3 0 0 0.3 0.2 0.3 0 0 0 0 0 1 0' :
+                                                        '1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'
+                           }
                         />
                       </filter>
                     </defs>
@@ -233,10 +236,10 @@ function App() {
             <div className="relative top-[95px]">
               <div className="relative w-80 h-80 mx-auto">
 
-                                  {/* Dialer Marker - Top Center */}
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
-                    <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-orange-500"></div>
-                  </div>
+                {/* Dialer Marker - Top Center */}
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
+                  <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-orange-500"></div>
+                </div>
 
                 {/* Outer Circle - Colors */}
                 <div className="absolute inset-0 rounded-full border-1 border-gray-300 bg-white" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)' }}>
