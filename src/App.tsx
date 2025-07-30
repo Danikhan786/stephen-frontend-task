@@ -95,12 +95,12 @@ function App() {
       {/* Responsive Container */}
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-2 sm:p-4">
         {/* Phone Container */}
-        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 425 ? '740px' : '770px', borderRadius: '35px' }}>
+        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '740px' : '770px', borderRadius: '35px' }}>
 
           {/* Header */}
-          <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
+          <div className="flex justify-between items-center px-4 sm:px-9 py-3 sm:py-4 bg-gray-50 -ms-6">
             <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-              <ChevronLeft className="w-5 h-5 text-gray-700" />
+              <ChevronLeft className="w-7 h-7 text-gray-700" style={{ marginLeft: window.innerWidth <= 426 ? '0px' : '-15px' }}/>
             </button>
             <div className="flex space-x-1">
               {Array.from({ length: 3 }, (_, index) => (
@@ -111,18 +111,15 @@ function App() {
                 />
               ))}
             </div>
-            <div className="relative">
-              {/* <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                  <MoreHorizontal className="w-5 h-5 text-gray-700" />
-                </button> */}
+            <div className="relative">  
               {/* Cart Shirt Image with Badge */}
               {showCart && (
-                <div className={`absolute -top-2 -right-2 transition-all duration-500 ${cartAnimation ? 'scale-110' : 'scale-100'}`}>
+                <div className={`absolute -top-6 -right-5  transition-all duration-500 ${cartAnimation ? 'scale-110' : 'scale-100'}`}>
                   <div className="relative">
                     <img
                       src="https://pics.clipartpng.com/midle/Male_White_Shirt_PNG_Clipart-942.png"
                       alt="Cart Shirt"
-                      className="w-8 h-8 object-contain"
+                      className="w-12 h-12 object-contain"
                       style={{
                         filter: selectedColor === 'white' ? 'brightness(1.1) saturate(0.9)' :
                           selectedColor === 'black' ? 'brightness(0.4) saturate(0.6)' :
@@ -132,17 +129,16 @@ function App() {
                                   selectedColor === 'yellow' ? 'brightness(1.2) saturate(1.3) hue-rotate(60deg)' :
                                     selectedColor === 'red' ? 'brightness(0.9) saturate(1.6) hue-rotate(0deg)' :
                                       selectedColor === 'green' ? 'brightness(0.8) saturate(1.4) hue-rotate(120deg)' :
-                                                                                 selectedColor === 'brown' ? 'brightness(0.6) saturate(1.2) hue-rotate(30deg)' :
-                                           selectedColor === 'indigo' ? 'brightness(0.6) saturate(1.5) hue-rotate(240deg)' :
-                                             selectedColor === 'lime' ? 'brightness(0.9) saturate(1.3) hue-rotate(90deg)' :
-                                                                                               selectedColor === 'blue' ? 'brightness(0.8) saturate(1.4) hue-rotate(210deg)' :
-                                                  selectedColor === 'rose' ? 'brightness(0.8) saturate(1.3) hue-rotate(330deg)' :
-                                                   'none'
-                      }}
-                    />
-                    <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
-                      {cartItems}
-                    </div>
+                                        selectedColor === 'brown' ? 'brightness(0.6) saturate(1.2) hue-rotate(30deg)' :
+                                          selectedColor === 'indigo' ? 'brightness(0.6) saturate(1.5) hue-rotate(240deg)' :
+                                            selectedColor === 'lime' ? 'brightness(0.9) saturate(1.3) hue-rotate(90deg)' :
+                                              selectedColor === 'blue' ? 'brightness(0.8) saturate(1.4) hue-rotate(210deg)' :
+                                                selectedColor === 'rose' ? 'brightness(0.8) saturate(1.3) hue-rotate(330deg)' :
+                                                  'none', marginLeft: window.innerWidth <= 425 ? '-15px' : '0px'
+                      }} />
+                                         <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center max-[425px]:-top-0 max-[425px]:right-2">
+                        {cartItems}
+                     </div>
                   </div>
                 </div>
               )}
@@ -161,21 +157,21 @@ function App() {
                       <filter id="colorFilter">
                         <feColorMatrix
                           type="matrix"
-                                                     values={
-                             selectedColor === 'white' ? '1 0 0 0 0.2 0 1 0 0 0.2 0 0 1 0 0.2 0 0 0 1 0' :
-                               selectedColor === 'black' ? '0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.1 0 0 0 0 0 1 0' :
-                                 selectedColor === 'gray' ? '0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0 0 0 1 0' :
-                                   selectedColor === 'pink' ? '0.8 0.2 0.8 0 0 0.2 0.1 0.4 0 0 0.2 0.1 0.4 0 0 0 0 0 1 0' :
-                                     selectedColor === 'orange' ? '0.8 0.4 0.1 0 0 0.4 0.2 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                       selectedColor === 'yellow' ? '0.8 0.8 0.1 0 0 0.8 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                         selectedColor === 'red' ? '0.8 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                           selectedColor === 'green' ? '0.1 0.6 0.1 0 0 0.1 0.6 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                             selectedColor === 'brown' ? '0.3 0.15 0.05 0 0 0.15 0.08 0.02 0 0 0.05 0.02 0.01 0 0 0 0 0 1 0' :
-                                               selectedColor === 'indigo' ? '0.2 0.1 0.7 0 0 0.1 0.05 0.3 0 0 0.1 0.05 0.3 0 0 0 0 0 1 0' :
-                                                 selectedColor === 'lime' ? '0.4 0.8 0.1 0 0 0.4 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
-                                                      selectedColor === 'rose' ? '0.6 0.3 0.5 0 0 0.3 0.2 0.3 0 0 0.3 0.2 0.3 0 0 0 0 0 1 0' :
-                                                        '1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'
-                           }
+                          values={
+                            selectedColor === 'white' ? '1 0 0 0 0.2 0 1 0 0 0.2 0 0 1 0 0.2 0 0 0 1 0' :
+                              selectedColor === 'black' ? '0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.1 0 0 0 0 0 1 0' :
+                                selectedColor === 'gray' ? '0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0 0 0 1 0' :
+                                  selectedColor === 'pink' ? '0.8 0.2 0.8 0 0 0.2 0.1 0.4 0 0 0.2 0.1 0.4 0 0 0 0 0 1 0' :
+                                    selectedColor === 'orange' ? '0.8 0.4 0.1 0 0 0.4 0.2 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                      selectedColor === 'yellow' ? '0.8 0.8 0.1 0 0 0.8 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                        selectedColor === 'red' ? '0.8 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                          selectedColor === 'green' ? '0.1 0.6 0.1 0 0 0.1 0.6 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                            selectedColor === 'brown' ? '0.3 0.15 0.05 0 0 0.15 0.08 0.02 0 0 0.05 0.02 0.01 0 0 0 0 0 1 0' :
+                                              selectedColor === 'indigo' ? '0.2 0.1 0.7 0 0 0.1 0.05 0.3 0 0 0.1 0.05 0.3 0 0 0 0 0 1 0' :
+                                                selectedColor === 'lime' ? '0.4 0.8 0.1 0 0 0.4 0.8 0.1 0 0 0.1 0.1 0.1 0 0 0 0 0 1 0' :
+                                                  selectedColor === 'rose' ? '0.6 0.3 0.5 0 0 0.3 0.2 0.3 0 0 0.3 0.2 0.3 0 0 0 0 0 1 0' :
+                                                    '1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'
+                          }
                         />
                       </filter>
                     </defs>
@@ -214,16 +210,16 @@ function App() {
           {/* Product Info */}
           <div className=" rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
             <div className="flex justify-between items-start px-4 sm:px-6">
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900">SURF T-SHIRT</h1>
+              <h1 className="text-lg  font-bold text-gray-900" style={{ fontSize: '21px' }}>SURF T-SHIRT</h1>
               <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
                 <span className='bg-yellow-500' style={{ borderRadius: '100%', padding: '2px 4px 1px' }}>$</span>  5.89
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-gray-500 mb-4 px-4 sm:px-6">Product No: TS4236987</p>
+            <p className="text-xs text-gray-500 mb-4 px-4 sm:px-6" style={{ fontSize: '13px' }}>Product No: TS4236987</p>
 
             {/* Product Features */}
-            <div className="px-4 sm:px-6">
+            <div className="px-4 sm:px-6" style={{ marginLeft: '20px' }}>
               {productFeatures.map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
@@ -233,7 +229,7 @@ function App() {
             </div>
 
             {/* Circular Dialer Selection Interface */}
-            <div className="relative top-[95px]">
+            <div className="relative top-[90px]">
               <div className="relative w-80 h-80 mx-auto">
 
                 {/* Dialer Marker - Top Center */}
@@ -381,7 +377,7 @@ function App() {
 
                         <button
                           onClick={handleBuy}
-                          className="w-12 h-12 bg-orange-500 text-white rounded-full font-semibold text-xs hover:bg-orange-600 transition-colors duration-200 shadow-lg"
+                          className="w-16 h-16 bg-orange-500 text-white rounded-full font-extrabold text-xs hover:bg-orange-600 transition-colors duration-200 shadow-lg we"
                         >
                           BUY
                         </button>
