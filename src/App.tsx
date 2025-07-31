@@ -95,7 +95,7 @@ function App() {
       {/* Responsive Container */}
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-2 sm:p-4">
         {/* Phone Container */}
-        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '740px' : '770px', borderRadius: '35px' }}>
+        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '675px' : '700px', borderRadius: '35px' }}>
 
           {/* Header */}
           <div className="flex justify-between items-center px-4 sm:px-9 py-3 sm:py-4 bg-gray-50 -ms-6">
@@ -183,32 +183,27 @@ function App() {
                       key={index}
                       src="https://pics.clipartpng.com/midle/Male_White_Shirt_PNG_Clipart-942.png"
                       alt={`Surf T-Shirt ${index + 1}`}
-                      className="absolute w-full h-full object-contain hover:scale-105 transition-all duration-300"
+                      className="absolute w-full h-full object-contain hover:scale-105 transition-all pt-3 duration-300"
                       style={{
                         transform: `scale(${selectedSize === 'xs' ? 0.7 :
-                          selectedSize === 's' ? 0.8 :
-                            selectedSize === 'm' ? 0.9 :
-                              selectedSize === 'l' ? 1.0 :
-                                selectedSize === 'xl' ? 1.1 :
-                                  selectedSize === 'xxl' ? 1.2 : 1.0
-                          }) translate(${index * 20}px, ${-index * 5}px)`,
+                          selectedSize === 's' ? 1.0 :
+                            selectedSize === 'm' ? 1.1 :
+                              selectedSize === 'l' ? 1.2 :
+                                selectedSize === 'xl' ? 1.3 :
+                                  selectedSize === 'xxl' ? 1.5 : 1.0
+                          }) translate(${index * 10}px, ${-index * 4}px)`,
                         filter: 'url(#colorFilter)',
                         zIndex: quantity - index
                       }}
                     />
                   ))}
                 </div>
-
-                {/* Size indicator */}
-                {/* <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                    {selectedSize.toUpperCase()}
-                  </div> */}
               </div>
             </div>
           </div>
 
           {/* Product Info */}
-          <div className=" rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
+          <div className="relative top-[30px] rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
             <div className="flex justify-between items-start px-4 sm:px-6">
               <h1 className="text-lg  font-bold text-gray-900" style={{ fontSize: '21px' }}>SURF T-SHIRT</h1>
               <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
@@ -216,20 +211,11 @@ function App() {
               </span>
             </div>
 
-            <p className="text-xs text-gray-500 mb-4 px-4 sm:px-6" style={{ fontSize: '13px' }}>Product No: TS4236987</p>
+            <p className="text-xs text-gray-500 px-4 sm:px-6" style={{ fontSize: '13px' }}>Product No: TS4236987</p>
 
-            {/* Product Features */}
-            <div className="px-4 sm:px-6" style={{ marginLeft: '20px' }}>
-              {productFeatures.map((feature, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">{feature}</span>
-                </div>
-              ))}
-            </div>
 
             {/* Circular Dialer Selection Interface */}
-            <div className="relative top-[90px]">
+            <div className="relative top-[87px]">
               <div className="relative w-80 h-80 mx-auto">
 
                 {/* Dialer Marker - Top Center */}
