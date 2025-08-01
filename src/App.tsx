@@ -91,9 +91,9 @@ function App() {
   };
 
   return (
-    <div className="min-[426px]:min-h-screen min-[426px]:bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
+    <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
       {/* Responsive Container */}
-      <div className="min-[426px]flex flex-col lg:flex-row items-center min-[426px]:justify-center ">
+      <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-2 sm:p-4">
         {/* Phone Container */}
         <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '675px' : '700px', borderRadius: '35px' }}>
 
