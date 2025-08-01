@@ -186,11 +186,11 @@ function App() {
                       className="absolute w-full h-full object-contain hover:scale-105 transition-all pt-3 duration-300"
                       style={{
                         transform: `scale(${selectedSize === 'xs' ? 0.7 :
-                          selectedSize === 's' ? 1.5 :
-                            selectedSize === 'm' ? 1.6 :
-                              selectedSize === 'l' ? 1.7 :
-                                selectedSize === 'xl' ? 1.8 :
-                                  selectedSize === 'xxl' ? 1.9 : 1.0
+                          selectedSize === 's' ? 1.7 :
+                            selectedSize === 'm' ? 1.8 :
+                              selectedSize === 'l' ? 1.9 :
+                                selectedSize === 'xl' ? 2.0 :
+                                  selectedSize === 'xxl' ? 2.1 : 1.0
                           }) translate(${index * 10}px, ${-index * 4}px)`,
                         filter: 'url(#colorFilter)',
                         zIndex: quantity - index
