@@ -148,7 +148,7 @@ function App() {
           {/* Product Image */}
           <div className="px-4 sm:px-6 py-6 sm:py-8 ">
             <div className="relative">
-              <div className="w-full h-48 relative max-[426px]:top-[10px]">
+              <div className="w-full h-48 relative max-[426px]:top-[60px]">
                 {/* Base shirt image */}
                 <div className="relative w-full h-full">
                   {/* SVG Filter Definitions */}
@@ -186,11 +186,11 @@ function App() {
                       className="absolute w-full h-full object-contain hover:scale-105 transition-all pt-3 duration-300"
                       style={{
                         transform: `scale(${selectedSize === 'xs' ? 0.7 :
-                          selectedSize === 's' ? 1.0 :
-                            selectedSize === 'm' ? 1.1 :
-                              selectedSize === 'l' ? 1.2 :
-                                selectedSize === 'xl' ? 1.3 :
-                                  selectedSize === 'xxl' ? 1.5 : 1.0
+                          selectedSize === 's' ? 1.5 :
+                            selectedSize === 'm' ? 1.6 :
+                              selectedSize === 'l' ? 1.7 :
+                                selectedSize === 'xl' ? 1.8 :
+                                  selectedSize === 'xxl' ? 1.9 : 1.0
                           }) translate(${index * 10}px, ${-index * 4}px)`,
                         filter: 'url(#colorFilter)',
                         zIndex: quantity - index
@@ -203,8 +203,8 @@ function App() {
           </div>
 
           {/* Product Info */}
-          <div className="relative top-[30px] max-[426px]:top-[175px] rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
-            <div className="flex justify-between items-start px-4 sm:px-6">
+          <div className="relative top-[30px] max-[426px]:top-[175px] rounded-t-lg inset-shadow-sm" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
+            <div className="flex justify-between items-start px-4 sm:px-6 pt-10">
               <h1 className="text-lg  font-bold text-gray-900" style={{ fontSize: '21px' }}>SURF T-SHIRT</h1>
               <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
                 <span className='bg-yellow-500' style={{ borderRadius: '100%', padding: '2px 4px 1px' }}>$</span>  5.89
@@ -215,7 +215,7 @@ function App() {
 
 
             {/* Circular Dialer Selection Interface */}
-            <div className="relative top-[87px] max-[426px]:top-[85px]">
+            <div className="relative top-[87px] max-[426px]:top-[50px]">
               <div className="relative w-80 h-80  mx-auto  max-[426px]:w-[100%] max-[426px]:h-[400px] ">
 
                 {/* Dialer Marker - Top Center */}
@@ -244,7 +244,7 @@ function App() {
                     <div className="relative w-80 h-80">
                       {colorOptions.map((color, index) => {
                         const angle = (index / colorOptions.length) * 360;
-                        const radius = window.innerWidth <= 426 ? 180 : 140;
+                        const radius = window.innerWidth <= 426 ? 174 : 140;
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
 
@@ -271,7 +271,7 @@ function App() {
                       {selectedColor && (() => {
                         const colorIndex = colorOptions.findIndex(c => c.id === selectedColor);
                         const angle = (colorIndex / colorOptions.length) * 360;
-                        const radius = window.innerWidth <= 426 ? 180 : 140;
+                        const radius = window.innerWidth <= 426 ? 174 : 140;
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
 
@@ -302,7 +302,7 @@ function App() {
                     <div className="relative w-48 h-48">
                       {sizeOptions.map((size, index) => {
                         const angle = (index / (sizeOptions.length - 1)) * 180 - 90; // 180 degree arc for sizes
-                        const radius = window.innerWidth <= 426 ? 130 : 90;
+                        const radius = window.innerWidth <= 426 ? 125 : 90;
 
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
