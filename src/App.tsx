@@ -203,7 +203,7 @@ function App() {
           </div>
 
           {/* Product Info */}
-          <div className="relative top-[30px] max-[426px]:top-[165px] rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
+          <div className="relative top-[30px] max-[426px]:top-[175px] rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
             <div className="flex justify-between items-start px-4 sm:px-6">
               <h1 className="text-lg  font-bold text-gray-900" style={{ fontSize: '21px' }}>SURF T-SHIRT</h1>
               <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
@@ -215,7 +215,7 @@ function App() {
 
 
             {/* Circular Dialer Selection Interface */}
-            <div className="relative top-[87px] max-[426px]:top-[120px]">
+            <div className="relative top-[87px] max-[426px]:top-[110px]">
               <div className="relative w-80 h-80  mx-auto">
 
                 {/* Dialer Marker - Top Center */}
