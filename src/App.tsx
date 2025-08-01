@@ -148,7 +148,7 @@ function App() {
           {/* Product Image */}
           <div className="px-4 sm:px-6 py-6 sm:py-8 ">
             <div className="relative">
-              <div className="w-full h-48 relative ">
+              <div className="w-full h-48 relative max-[426px]:top-[10px]">
                 {/* Base shirt image */}
                 <div className="relative w-full h-full">
                   {/* SVG Filter Definitions */}
@@ -216,7 +216,7 @@ function App() {
 
             {/* Circular Dialer Selection Interface */}
             <div className="relative top-[87px] max-[426px]:top-[120px]">
-              <div className="relative w-80 h-80 mx-auto">
+              <div className="relative w-80 h-80  mx-auto">
 
                 {/* Dialer Marker - Top Center */}
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
