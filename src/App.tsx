@@ -93,9 +93,9 @@ function App() {
   return (
     <div className="min-h-screen min-[427px]:bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
       {/* Responsive Container */}
-      <div className="max-[426px]:flex-col max-[426px]:items-center max-[426px]:justify-center max-[426px]:min-h-screen  min-[427px]:flex min-[427px]:flex-col min-[427px]:lg:flex-row min-[427px]:items-center min-[427px]:justify-center min-[427px]:min-h-screen min-[426px]:p-2 min-[426px]:sm:p-4">
+      <div className=":flex-col items-center max-[426px]:justify-center max-[426px]:min-h-screen  min-[427px]:flex min-[427px]:flex-col min-[427px]:lg:flex-row min-[427px]:items-center min-[427px]:justify-center min-[427px]:min-h-screen min-[426px]:p-2 min-[426px]:sm:p-4">
         {/* Phone Container */}
-        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '675px' : '700px', borderRadius: window.innerWidth <= 426 ? '0px' : '35px' }}>
+        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '740px' : '700px', borderRadius: window.innerWidth <= 426 ? '0px' : '35px' }}>
 
           {/* Header */}
           <div className="flex justify-between items-center px-4 sm:px-9 py-3 sm:py-4 bg-gray-50 -ms-6">
@@ -203,7 +203,7 @@ function App() {
           </div>
 
           {/* Product Info */}
-          <div className="relative top-[30px] rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
+          <div className="relative top-[30px] max-[426px]:top-[60px] rounded-t-lg inset-shadow-sm pt-5" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
             <div className="flex justify-between items-start px-4 sm:px-6">
               <h1 className="text-lg  font-bold text-gray-900" style={{ fontSize: '21px' }}>SURF T-SHIRT</h1>
               <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
@@ -215,7 +215,7 @@ function App() {
 
 
             {/* Circular Dialer Selection Interface */}
-            <div className="relative top-[87px]">
+            <div className="relative top-[87px] max-[426px]:top-[120px]">
               <div className="relative w-80 h-80 mx-auto">
 
                 {/* Dialer Marker - Top Center */}
