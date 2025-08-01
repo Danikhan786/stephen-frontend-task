@@ -100,7 +100,7 @@ function App() {
           {/* Header */}
           <div className="flex justify-between items-center px-4 sm:px-9 py-3 sm:py-4  -ms-6">
             <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-              <ChevronLeft className="w-7 h-7 text-gray-700" style={{ marginLeft: window.innerWidth <= 426 ? '0px' : '-15px' }}/>
+              <ChevronLeft className="w-7 h-7 text-gray-700" style={{ marginLeft: window.innerWidth <= 426 ? '0px' : '-15px' }} />
             </button>
             <div className="flex space-x-1">
               {Array.from({ length: 3 }, (_, index) => (
@@ -111,7 +111,7 @@ function App() {
                 />
               ))}
             </div>
-            <div className="relative">  
+            <div className="relative">
               {/* Cart Shirt Image with Badge */}
               {showCart && (
                 <div className={`absolute -top-6 -right-5  transition-all duration-500 ${cartAnimation ? 'scale-110' : 'scale-100'}`}>
@@ -136,9 +136,9 @@ function App() {
                                                 selectedColor === 'rose' ? 'brightness(0.8) saturate(1.3) hue-rotate(330deg)' :
                                                   'none', marginLeft: window.innerWidth <= 425 ? '-15px' : '0px'
                       }} />
-                                         <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center max-[425px]:-top-0 max-[425px]:right-2">
-                        {cartItems}
-                     </div>
+                    <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center max-[425px]:-top-0 max-[425px]:right-2">
+                      {cartItems}
+                    </div>
                   </div>
                 </div>
               )}
@@ -185,12 +185,19 @@ function App() {
                       alt={`Surf T-Shirt ${index + 1}`}
                       className="absolute w-full h-full object-contain hover:scale-105 transition-all pt-3 duration-300"
                       style={{
-                        transform: `scale(${selectedSize === 'xs' ? 0.7 :
-                          selectedSize === 's' ? 1.7 :
-                            selectedSize === 'm' ? 1.8 :
-                              selectedSize === 'l' ? 1.9 :
-                                selectedSize === 'xl' ? 2.0 :
-                                  selectedSize === 'xxl' ? 2.1 : 1.0
+                        transform: `scale(${window.innerWidth <= 426 ?
+                          (selectedSize === 'xs' ? 0.7 :
+                            selectedSize === 's' ? 1.7 :
+                              selectedSize === 'm' ? 1.8 :
+                                selectedSize === 'l' ? 1.9 :
+                                  selectedSize === 'xl' ? 2.0 :
+                                    selectedSize === 'xxl' ? 2.1 : 1.0) :
+                          (selectedSize === 'xs' ? 0.7 :
+                            selectedSize === 's' ? 1.0 :
+                              selectedSize === 'm' ? 1.1 :
+                                selectedSize === 'l' ? 1.2 :
+                                  selectedSize === 'xl' ? 1.3 :
+                                    selectedSize === 'xxl' ? 1.5 : 1.0)
                           }) translate(${index * 10}px, ${-index * 4}px)`,
                         filter: 'url(#colorFilter)',
                         zIndex: quantity - index
@@ -204,7 +211,7 @@ function App() {
 
           {/* Product Info */}
           <div className="relative top-[30px] max-[426px]:top-[175px] rounded-t-lg inset-shadow-sm" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
-            <div className="flex justify-between items-start px-4 sm:px-6 pt-10">
+            <div className="flex justify-between items-start px-4 sm:px-6 pt-5 max-[426px]:pt-10">
               <h1 className="text-lg  font-bold text-gray-900" style={{ fontSize: '21px' }}>SURF T-SHIRT</h1>
               <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
                 <span className='bg-yellow-500' style={{ borderRadius: '100%', padding: '2px 4px 1px' }}>$</span>  5.89
