@@ -91,11 +91,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
+    <div className="min-h-screen min-[427px]:bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
       {/* Responsive Container */}
-      <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen p-2 sm:p-4">
+      <div className="max-[426px]:flex-col max-[426px]:items-center max-[426px]:justify-center max-[426px]:min-h-screen  min-[427px]:flex min-[427px]:flex-col min-[427px]:lg:flex-row min-[427px]:items-center min-[427px]:justify-center min-[427px]:min-h-screen min-[426px]:p-2 min-[426px]:sm:p-4">
         {/* Phone Container */}
-        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '675px' : '700px', borderRadius: '35px' }}>
+        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '675px' : '700px', borderRadius: window.innerWidth <= 426 ? '0px' : '35px' }}>
 
           {/* Header */}
           <div className="flex justify-between items-center px-4 sm:px-9 py-3 sm:py-4 bg-gray-50 -ms-6">
