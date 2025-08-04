@@ -91,16 +91,16 @@ function App() {
   };
 
   return (
-    <div className="min-[427px]:bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
+    <div className="min-[440px]:bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
       {/* Responsive Container */}
-      <div className="flex-col items-center max-[426px]:justify-center  min-[427px]:flex min-[427px]:flex-col min-[427px]:lg:flex-row min-[427px]:items-center min-[427px]:justify-center min-[426px]:p-2 min-[426px]:sm:p-4 min-[426px]:min-h-64">
+      <div className="flex-col items-center max-[440px]:justify-center  min-[440px]:flex min-[440px]:flex-col min-[440px]:lg:flex-row min-[440px]:items-center min-[440px]:justify-center min-[440px]:p-2 min-[426px]:sm:p-4 min-[440px]:min-h-64">
         {/* Phone Container */}
         <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '740px' : '700px', borderRadius: window.innerWidth <= 426 ? '0px' : '35px' }}>
 
           {/* Header */}
           <div className="flex justify-between items-center px-4 sm:px-9 py-3 sm:py-4  -ms-6">
             <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-              <ChevronLeft className="w-7 h-7 text-gray-700" style={{ marginLeft: window.innerWidth <= 426 ? '0px' : '-15px' }} />
+              <ChevronLeft className="w-7 h-7 text-gray-700" style={{ marginLeft: window.innerWidth <= 440 ? '0px' : '-15px' }} />
             </button>
             <div className="flex space-x-1">
               {Array.from({ length: 3 }, (_, index) => (
@@ -223,7 +223,7 @@ function App() {
 
             {/* Circular Dialer Selection Interface */}
             <div className="relative top-[87px] max-[426px]:top-[50px]">
-              <div className="relative w-80 h-80  mx-auto  max-[426px]:w-[100%] max-[426px]:h-[400px] ">
+              <div className="relative w-80 h-80  mx-auto  max-[440px]:w-[100%] max-[440px]:h-[400px] ">
 
                 {/* Dialer Marker - Top Center */}
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
@@ -251,7 +251,7 @@ function App() {
                     <div className="relative w-80 h-80">
                       {colorOptions.map((color, index) => {
                         const angle = (index / colorOptions.length) * 360;
-                        const radius = window.innerWidth <= 426 ? 174 : 140;
+                        const radius = window.innerWidth <= 440 ? 175 : 140;
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
 
@@ -278,7 +278,7 @@ function App() {
                       {selectedColor && (() => {
                         const colorIndex = colorOptions.findIndex(c => c.id === selectedColor);
                         const angle = (colorIndex / colorOptions.length) * 360;
-                        const radius = window.innerWidth <= 426 ? 174 : 140;
+                        const radius = window.innerWidth <= 440 ? 175 : 140;
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
 
@@ -309,7 +309,7 @@ function App() {
                     <div className="relative w-48 h-48">
                       {sizeOptions.map((size, index) => {
                         const angle = (index / (sizeOptions.length - 1)) * 180 - 90; // 180 degree arc for sizes
-                        const radius = window.innerWidth <= 426 ? 125 : 90;
+                        const radius = window.innerWidth <= 440 ? 125 : 90;
 
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
@@ -349,7 +349,7 @@ function App() {
 
                   {/* Quantity and Buy Controls */}
                   <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out">
-                    <div className="text-center relative -top-[10px] max-[426px]:-top-[18px]">
+                    <div className="text-center relative -top-[10px] max-[440px]:-top-[18px]">
                       {/* Quantity Display */}
                       <div className="flex items-center justify-center space-x-2 mb-2">
                         <div className="w-6 h-6  flex items-center justify-center font-semibold text-gray-700 text-s">
