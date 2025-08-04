@@ -26,7 +26,7 @@ const colorOptions: ColorOption[] = [
   { id: 'indigo', name: 'Indigo', color: '#f9afaf' },
   { id: 'lime', name: 'Lime', color: '#84CC16' },
   { id: 'rose', name: 'Rose', color: '#c27ba0' },
-
+  
 ];
 
 const sizeOptions: SizeOption[] = [
@@ -37,13 +37,6 @@ const sizeOptions: SizeOption[] = [
   { id: 's', name: 'S', available: true },
   // { id: 'xs', name: 'XS', available: true },
 
-];
-
-const productFeatures = [
-  '100% Cotton',
-  'Import Quality',
-  'Machine Wash',
-  'Short sleeve graphic tee'
 ];
 
 function App() {
