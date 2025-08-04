@@ -91,9 +91,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen min-[427px]:bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
+    <div className="min-[427px]:bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-400">
       {/* Responsive Container */}
-      <div className=":flex-col items-center max-[426px]:justify-center max-[426px]:min-h-screen  min-[427px]:flex min-[427px]:flex-col min-[427px]:lg:flex-row min-[427px]:items-center min-[427px]:justify-center min-[427px]:min-h-screen min-[426px]:p-2 min-[426px]:sm:p-4">
+      <div className="flex-col items-center max-[426px]:justify-center  min-[427px]:flex min-[427px]:flex-col min-[427px]:lg:flex-row min-[427px]:items-center min-[427px]:justify-center min-[426px]:p-2 min-[426px]:sm:p-4 min-[426px]:min-h-64">
         {/* Phone Container */}
         <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '845px' : '700px', borderRadius: window.innerWidth <= 426 ? '0px' : '35px' }}>
 
@@ -148,7 +148,7 @@ function App() {
           {/* Product Image */}
           <div className="px-4 sm:px-6 py-6 sm:py-8 ">
             <div className="relative">
-              <div className="w-full h-48 relative max-[426px]:top-[60px]">
+              <div className="w-full h-48 relative max-[426px]:top-[40px]">
                 {/* Base shirt image */}
                 <div className="relative w-full h-full">
                   {/* SVG Filter Definitions */}
@@ -183,15 +183,15 @@ function App() {
                       key={index}
                       src="https://pics.clipartpng.com/midle/Male_White_Shirt_PNG_Clipart-942.png"
                       alt={`Surf T-Shirt ${index + 1}`}
-                      className="absolute w-full h-full object-contain hover:scale-105 transition-all pt-3 duration-300"
+                      className="absolute w-full h-full object-contain hover:scale-105 transition-all pt-1 duration-300"
                       style={{
                         transform: `scale(${window.innerWidth <= 426 ?
-                          (selectedSize === 'xs' ? 0.7 :
-                            selectedSize === 's' ? 1.7 :
-                              selectedSize === 'm' ? 1.8 :
-                                selectedSize === 'l' ? 1.9 :
-                                  selectedSize === 'xl' ? 2.0 :
-                                    selectedSize === 'xxl' ? 2.1 : 1.0) :
+                          (selectedSize === 'xs' ? 0.4 :
+                            selectedSize === 's' ? 1.1 :
+                              selectedSize === 'm' ? 1.2 :
+                                selectedSize === 'l' ? 1.3 :
+                                  selectedSize === 'xl' ? 1.4 :
+                                    selectedSize === 'xxl' ? 1.5 : 1.0) :
                           (selectedSize === 'xs' ? 0.7 :
                             selectedSize === 's' ? 1.0 :
                               selectedSize === 'm' ? 1.1 :
@@ -210,7 +210,7 @@ function App() {
           </div>
 
           {/* Product Info */}
-          <div className="relative top-[30px] max-[426px]:top-[175px] rounded-t-lg inset-shadow-sm" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
+          <div className="relative top-[30px] max-[426px]:top-[80px] rounded-t-lg inset-shadow-sm" style={{ boxShadow: '1px 1px 12px 1px rgba(0,0,0,0.45)', borderRadius: '30px' }}>
             <div className="flex justify-between items-start px-4 sm:px-6 pt-5 max-[426px]:pt-10">
               <h1 className="text-lg  font-bold text-gray-900" style={{ fontSize: '21px' }}>SURF T-SHIRT</h1>
               <span className="bg-orange-500 text-white px-2 sm:px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
