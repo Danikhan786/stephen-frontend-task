@@ -222,8 +222,8 @@ function App() {
 
 
             {/* Circular Dialer Selection Interface */}
-            <div className="relative top-[87px] max-[426px]:top-[50px]">
-              <div className="relative w-80 h-80  mx-auto  max-[440px]:w-[100%] max-[440px]:h-[400px] ">
+            <div className="relative top-[87px] max-[440px]:top-[60px] max-[426px]:top-[50px]">
+              <div className="relative w-80 h-80  mx-auto  max-[440px]:w-[100%] max-[440px]:h-[435px] max-[426px]:h-[400px] ">
 
                 {/* Dialer Marker - Top Center */}
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-50">
@@ -251,7 +251,7 @@ function App() {
                     <div className="relative w-80 h-80">
                       {colorOptions.map((color, index) => {
                         const angle = (index / colorOptions.length) * 360;
-                        const radius = window.innerWidth <= 440 ? 175 : 140;
+                        const radius = window.innerWidth <= 426 ? 175 : (window.innerWidth <= 440 ? 195 : 140);
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
 
@@ -278,7 +278,7 @@ function App() {
                       {selectedColor && (() => {
                         const colorIndex = colorOptions.findIndex(c => c.id === selectedColor);
                         const angle = (colorIndex / colorOptions.length) * 360;
-                        const radius = window.innerWidth <= 440 ? 175 : 140;
+                        const radius = window.innerWidth <= 426 ? 175 : (window.innerWidth <= 440 ? 195 : 140);
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
 
@@ -309,7 +309,7 @@ function App() {
                     <div className="relative w-48 h-48">
                       {sizeOptions.map((size, index) => {
                         const angle = (index / (sizeOptions.length - 1)) * 180 - 90; // 180 degree arc for sizes
-                        const radius = window.innerWidth <= 440 ? 125 : 90;
+                        const radius = window.innerWidth <= 426 ? 125 : (window.innerWidth <= 440 ? 145 : 90);
 
                         const x = Math.cos(angle * Math.PI / 180) * radius;
                         const y = Math.sin(angle * Math.PI / 180) * radius;
