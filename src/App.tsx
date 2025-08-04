@@ -95,7 +95,7 @@ function App() {
       {/* Responsive Container */}
       <div className="flex-col items-center max-[426px]:justify-center  min-[427px]:flex min-[427px]:flex-col min-[427px]:lg:flex-row min-[427px]:items-center min-[427px]:justify-center min-[426px]:p-2 min-[426px]:sm:p-4 min-[426px]:min-h-64">
         {/* Phone Container */}
-        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '845px' : '700px', borderRadius: window.innerWidth <= 426 ? '0px' : '35px' }}>
+        <div className="bg-white shadow-2xl overflow-hidden" style={{ height: window.innerWidth <= 426 ? '740px' : '700px', borderRadius: window.innerWidth <= 426 ? '0px' : '35px' }}>
 
           {/* Header */}
           <div className="flex justify-between items-center px-4 sm:px-9 py-3 sm:py-4  -ms-6">
